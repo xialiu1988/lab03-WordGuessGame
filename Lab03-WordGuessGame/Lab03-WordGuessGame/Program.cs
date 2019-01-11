@@ -18,73 +18,121 @@ namespace Lab03_WordGuessGame
             while (run)
             {
                 HomePage();
-                string input = Console.ReadLine();
-
-                switch (input)
+                try
                 {
-                    case "1":
-                        Console.Clear();
-                        string randomWord = RandomlyGetOneWord(path);
-                        Console.WriteLine(randomWord);
-                        UserGuessWord(randomWord);
+                    string input = Console.ReadLine();
 
-                        //chooose start a new game or back to home page
-
-                        Console.WriteLine("Do you want to start a new game? y/n");
-                        string input2 = Console.ReadLine();
-                        String ans = input2.ToLower();
-                        if (ans == "y")
-                        {
-                            goto case "1";
-                        }
-                        else
-                        {
+                    switch (input)
+                    {
+                        case "1":
                             Console.Clear();
-                            run = true;
-                        }
-                        break;
+                            string randomWord = RandomlyGetOneWord(path);
+                            Console.WriteLine(randomWord);
+                            UserGuessWord(randomWord);
 
-                    case "2":
-                        Console.Clear();
-                        Admin();
-                        string input3= Console.ReadLine();
-                        if (input3 == "1")
-                        {
-                            string[] lines = File.ReadAllLines(path);
-                            Console.Clear();
-                            for (int i = 0; i < lines.Length; i++)
-                            {   
-                                Console.WriteLine(lines[i]);
+                            //chooose start a new game or back to home page
+
+                            Console.WriteLine("Do you want to start a new game? y/n");
+                            string input2 = Console.ReadLine();
+                            String ans = input2.ToLower();
+                            if (ans == "y")
+                            {
+                                goto case "1";
                             }
-                            Console.WriteLine("*************");
-                            Console.WriteLine("*************");
-                            Console.WriteLine("press any key to go back");
-                            Console.WriteLine("*************");
-                            Console.WriteLine("*************");
-                            Console.ReadLine();
-                            goto case "2";
+                            else
+                            {
+                                Console.Clear();
+                                run = true;
+                            }
+                            break;
 
-                        }
-                        else if (input3 == "2")
-                        {
+                        case "2":
+                            Console.Clear();
+                            Admin();
+                            string input3 = Console.ReadLine();
+                            if (input3 == "1")
+                            {
+                                string[] lines = File.ReadAllLines(path);
+                                Console.Clear();
+                                for (int i = 0; i < lines.Length; i++)
+                                {
+                                    Console.WriteLine(lines[i]);
+                                }
+                                Console.WriteLine("*************");
+                                Console.WriteLine("press any key to go back");
+                                Console.WriteLine("*************");
+                                Console.ReadLine();
+                                goto case "2";
 
-                        }
+                            }
+                            else if (input3 == "2")
+                            {
+                                Console.Clear();
+                                Console.WriteLine("what word you want to add?");
+                                string word = Console.ReadLine();
+                                using (StreamWriter streamWriter = File.AppendText(path))
+                                {
+                                    streamWriter.WriteLine(word);
+                                }
+                                Console.WriteLine("*************");
+                                Console.WriteLine("You have successfully added that");
+                                Console.WriteLine("press any key to go back");
+                                Console.WriteLine("*************");
+                                Console.ReadLine();
+                                goto case "2";
+                            }
+                            else if (input3 == "3")
+                            {
+                                Console.Clear();
+                                Console.WriteLine("what word you want to delete?");
+                                string word = Console.ReadLine();
 
-                        break;
+                                string tempFile = Path.GetTempFileName();
 
-                    case "3":
-                        Environment.Exit(0);
-                        break;
+                                using (var sr = new StreamReader(path))
+                                {
+                                    using (var sw = new StreamWriter(tempFile))
+                                    {
+                                        string line;
 
+                                        while ((line = sr.ReadLine()) != null)
+                                        {
+                                            if (line != word)
+                                                sw.WriteLine(line);
+                                        }
+                                    }
+                                }
 
+                                File.Delete(path);
+                                File.Move(tempFile, path);
+                                Console.WriteLine("*************");
+                                Console.WriteLine("You have successfully deleted that");
+                                Console.WriteLine("press any key to go back");
+                                Console.WriteLine("*************");
+                                Console.ReadLine();
+                                goto case "2";
+                            }
+                            else if (input3 == "4")
+                            {
+                                Console.Clear();
+                                run = true;
+                            }
+                            break;
+
+                        case "3":
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            throw new Exception("please choose one from here");
+
+                    }
                 }
-
-                //View words in the external file, 
-                //add a word to the external file, 
-                //Remove words from a text file, 
-
-        
-
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+              
             }
 
           
@@ -160,6 +208,12 @@ namespace Lab03_WordGuessGame
             while (emp.Contains("_ "))
             {
                 string input = Console.ReadLine();
+                if (input.Length != 1)
+                {
+                    Console.WriteLine("please press one letter");
+                }
+
+       
                 for (int i = 0; i < randomWord.Length; i++)
                 {
                     if (randomWord[i].ToString() == input)
@@ -193,7 +247,6 @@ namespace Lab03_WordGuessGame
             Console.WriteLine("3:Delete a Word");
             Console.WriteLine("4:Go back to Home page");
         }
-  
-
+ 
     }
 }
