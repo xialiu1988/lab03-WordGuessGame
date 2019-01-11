@@ -12,7 +12,7 @@ namespace Lab03_WordGuessGame
             Console.WriteLine("Hello World!");
             String path = "../../../wordgame.txt";
             CreateFile(path);
-
+           
             //boolean to check want run the home page and all the other operations
             bool run = true;
             while (run)
@@ -23,7 +23,7 @@ namespace Lab03_WordGuessGame
                 switch (input)
                 {
                     case "1":
-
+                        Console.Clear();
                         string randomWord = RandomlyGetOneWord(path);
                         Console.WriteLine(randomWord);
                         UserGuessWord(randomWord);
@@ -39,11 +39,38 @@ namespace Lab03_WordGuessGame
                         }
                         else
                         {
+                            Console.Clear();
                             run = true;
                         }
                         break;
 
                     case "2":
+                        Console.Clear();
+                        Admin();
+                        string input3= Console.ReadLine();
+                        if (input3 == "1")
+                        {
+                            string[] lines = File.ReadAllLines(path);
+                            Console.Clear();
+                            for (int i = 0; i < lines.Length; i++)
+                            {   
+                                Console.WriteLine(lines[i]);
+                            }
+                            Console.WriteLine("*************");
+                            Console.WriteLine("*************");
+                            Console.WriteLine("press any key to go back");
+                            Console.WriteLine("*************");
+                            Console.WriteLine("*************");
+                            Console.ReadLine();
+                            goto case "2";
+
+                        }
+                        else if (input3 == "2")
+                        {
+
+                        }
+
+                        break;
 
                     case "3":
                         Environment.Exit(0);
@@ -55,8 +82,8 @@ namespace Lab03_WordGuessGame
                 //View words in the external file, 
                 //add a word to the external file, 
                 //Remove words from a text file, 
-                //exit the game, 
-                //start a new game
+
+        
 
             }
 
@@ -84,6 +111,8 @@ namespace Lab03_WordGuessGame
             }
             
         }
+
+        //create home page
 
         public static void HomePage()
         {
@@ -155,6 +184,16 @@ namespace Lab03_WordGuessGame
             
 
         }
+        //create Admin page with 4 choices
+        public static void Admin()
+        {
+            Console.WriteLine("Press a number:");
+            Console.WriteLine("1:View the Words");
+            Console.WriteLine("2:Add a New Word");
+            Console.WriteLine("3:Delete a Word");
+            Console.WriteLine("4:Go back to Home page");
+        }
+  
 
     }
 }
