@@ -13,19 +13,54 @@ namespace Lab03_WordGuessGame
             String path = "../../../wordgame.txt";
             CreateFile(path);
 
-            //Home Navigation
+            //boolean to check want run the home page and all the other operations
+            bool run = true;
+            while (run)
+            {
+                HomePage();
+                string input = Console.ReadLine();
 
-            //View words in the external file, 
-            //add a word to the external file, 
-            //Remove words from a text file, 
-            //exit the game, 
-            //start a new game
+                switch (input)
+                {
+                    case "1":
+
+                        string randomWord = RandomlyGetOneWord(path);
+                        Console.WriteLine(randomWord);
+                        UserGuessWord(randomWord);
+
+                        //chooose start a new game or back to home page
+
+                        Console.WriteLine("Do you want to start a new game? y/n");
+                        string input2 = Console.ReadLine();
+                        String ans = input2.ToLower();
+                        if (ans == "y")
+                        {
+                            goto case "1";
+                        }
+                        else
+                        {
+                            run = true;
+                        }
+                        break;
+
+                    case "2":
+
+                    case "3":
+                        Environment.Exit(0);
+                        break;
 
 
-           string randomWord= RandomlyGetOneWord(path);
-            Console.WriteLine(randomWord);
+                }
 
-            UserGuessWord(randomWord);
+                //View words in the external file, 
+                //add a word to the external file, 
+                //Remove words from a text file, 
+                //exit the game, 
+                //start a new game
+
+            }
+
+          
         }
 
 
@@ -49,6 +84,28 @@ namespace Lab03_WordGuessGame
             }
             
         }
+
+        public static void HomePage()
+        {
+            Console.WriteLine("*******************************");
+            Console.WriteLine("*******************************");
+            Console.WriteLine("*******************************");
+            Console.WriteLine("******Guess**A***Word**********");
+            Console.WriteLine("*******************************");
+            Console.WriteLine("*******************************");
+            Console.WriteLine("*******************************");
+
+            Console.WriteLine(" ");
+            Console.WriteLine("1:Start a Game");
+            Console.WriteLine("2:Admin");
+            Console.WriteLine("3:Exit");
+            Console.WriteLine("*******************************");
+
+        }
+
+
+
+
 
         public static string RandomlyGetOneWord(string path)
         {
