@@ -124,6 +124,7 @@ namespace Lab03_WordGuessGame
                             break;
 
                         default:
+                           // Console.Clear();
                             throw new Exception("please choose one from here");
 
                     }
