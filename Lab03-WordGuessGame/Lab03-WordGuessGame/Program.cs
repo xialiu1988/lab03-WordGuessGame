@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Lab03_WordGuessGame
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -256,6 +256,8 @@ namespace Lab03_WordGuessGame
             
 
         }
+
+
         //create Admin page with 4 choices
         public static void Admin()
         {
