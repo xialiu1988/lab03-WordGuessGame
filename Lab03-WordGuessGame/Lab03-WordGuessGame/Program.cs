@@ -66,8 +66,11 @@ namespace Lab03_WordGuessGame
                             }
                             else if (input3 == "2")
                             {
-                             bool word= AddWord(path);
-                                if (word==true)
+                                Console.Clear();
+                                Console.WriteLine("what word you want to add?");
+                                string word = Console.ReadLine();
+                                bool wordNew= AddWord(path,word);
+                                if (wordNew==true)
                                 {
                                     Console.WriteLine("*************");
                                     Console.WriteLine($"You have successfully added it");
@@ -88,9 +91,12 @@ namespace Lab03_WordGuessGame
                             }
                             else if (input3 == "3")
                             {
-                                string word=DeleteWord(path);
+                                Console.Clear();
+                                Console.WriteLine("what word you want to delete?");
+                                string word = Console.ReadLine();
+                                string wordD=DeleteWord(path,word);
                                 Console.WriteLine("*************");
-                                Console.WriteLine($"{word} is gone now.");
+                                Console.WriteLine($"{wordD} is gone now.");
                                 Console.WriteLine("press any key to go back");
                                 Console.WriteLine("*************");
                                 Console.ReadLine();
@@ -216,17 +222,34 @@ namespace Lab03_WordGuessGame
                     Console.WriteLine("please press one letter");
                 }
 
-       //go through the random word compare eaach letter with the input,if they match ,replace "_ " with the letter
-                for (int i = 0; i < randomWord.Length; i++)
+                //go through the random word compare eaach letter with the input,if they match ,replace "_ " with the letter
+                //for (int i = 0; i < randomWord.Length; i++)
+                //{
+                //    if (randomWord[i].ToString() == input)
+                //    {
+                //        int index = randomWord.IndexOf(input);
+
+                //        emp[i] = randomWord[i].ToString();
+
+                //    }
+                //}
+
+
+                bool result = DetectALetter(randomWord, input);
+                if (result == true)
                 {
-                    if (randomWord[i].ToString() == input)
-                    {
-                        int index = randomWord.IndexOf(input);
 
-                        emp[i] = randomWord[i].ToString();
+                    for (int i = 0; i < randomWord.Length; i++)
+              
+                if (randomWord[i].ToString() == input)
+                 {
+                   int index = randomWord.IndexOf(input);
 
-                    }
-                }
+                     emp[i] = randomWord[i].ToString();
+
+                     }
+                        }
+
 
                 using (StreamWriter streamWriter = File.AppendText(pathTwo))
                 {
@@ -256,6 +279,28 @@ namespace Lab03_WordGuessGame
             
 
         }
+   /// <summary>
+   /// detect if the letter user type is exsiting in the random word
+   /// </summary>
+   /// <param name="randomWord"></param>
+   /// <param name="input"></param>
+   /// <returns>true if it exsits</returns>
+        public static bool DetectALetter(string randomWord,string input)
+        {
+            string temp= "";
+            for (int i = 0; i < randomWord.Length; i++)
+                {
+                    if (randomWord[i].ToString() == input)
+                    {
+                      temp = temp + input;
+                    }
+                }
+            if (temp != "") return true;
+           else return false;
+        }
+
+
+
 
 
         //create Admin page with 4 choices
@@ -274,14 +319,12 @@ namespace Lab03_WordGuessGame
         /// </summary>
         /// <param name="path"></param>
         /// <returns>true if successfully added</returns>
-        public static bool AddWord(string path)
+        public static bool AddWord(string path,string word)
         {
-            Console.Clear();
-            Console.WriteLine("what word you want to add?");
-            string word = Console.ReadLine();
+            
         
             bool isDigitPresent = word.Any(c => char.IsDigit(c));
-            if (isDigitPresent==true||word.Length==0)
+            if (isDigitPresent==true||word.Length==0||word==" ")
             {
                 Console.WriteLine("This is not a word.");
                 return false;
@@ -300,11 +343,9 @@ namespace Lab03_WordGuessGame
         /// </summary>
         /// <param name="path"></param>
         /// <returns>word</returns>
-        public static string DeleteWord(string path)
+        public static string DeleteWord(string path,string word)
         {
-            Console.Clear();
-            Console.WriteLine("what word you want to delete?");
-            string word = Console.ReadLine();
+          
 
             string tempFile = Path.GetTempFileName();
 
