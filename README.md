@@ -1,5 +1,4 @@
 # lab03-WordGuessGame
-tell them what it is (with context, provide a summary)
 
 This a game to guess a word by guessing letter by letter.
 Home page will be like this:
@@ -135,7 +134,3 @@ Have Fun!
 
 
 
-
-
-show them how they use it (Step by step directions, “Happy Path” walk through)
-tell them any other relevant details 
