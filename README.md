@@ -1,6 +1,13 @@
 # lab03-WordGuessGame
 
-This a game to guess a word by guessing letter by letter.
+This a game to guess a word by guessing letter by letter. 
+
+You can always start a new game after you finishe one and you can 
+
+manage the words in the file(add/delete)
+
+
+
 Home page will be like this:
 
 
