@@ -250,10 +250,15 @@ namespace Lab03_WordGuessGame
                      }
                         }
 
-
-                using (StreamWriter streamWriter = File.AppendText(pathTwo))
+                try
                 {
-                    streamWriter.WriteLine(input);
+                    using (StreamWriter streamWriter = File.AppendText(pathTwo))
+                    {
+                        streamWriter.WriteLine(input);
+                    }
+                }catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
                 //now output the updated string array should has some letther with some "_ "
 
@@ -331,9 +336,16 @@ namespace Lab03_WordGuessGame
             }
             else
             {
-                using (StreamWriter streamWriter = File.AppendText(path))
+                try
                 {
-                    streamWriter.WriteLine(word);
+                    using (StreamWriter streamWriter = File.AppendText(path))
+                    {
+                        streamWriter.WriteLine(word);
+                    }
+                }catch(Exception e)
+                {
+                    throw;
+                    
                 }
                 return true;
             }
@@ -348,21 +360,26 @@ namespace Lab03_WordGuessGame
           
 
             string tempFile = Path.GetTempFileName();
-
-            using (var sr = new StreamReader(path))
+            try
             {
-                using (var sw = new StreamWriter(tempFile))
+                using (var sr = new StreamReader(path))
                 {
-                    string line;
-
-                    while ((line = sr.ReadLine()) != null)
+                    using (var sw = new StreamWriter(tempFile))
                     {
-                        if (line != word)
-                            sw.WriteLine(line);
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line != word)
+                                sw.WriteLine(line);
+                        }
                     }
                 }
             }
-
+            catch (Exception)
+            {
+                throw;
+            }
             File.Delete(path);
             File.Move(tempFile, path);
             return word;
