@@ -317,7 +317,27 @@ namespace Lab03_WordGuessGame
             Console.WriteLine("3:Delete a Word");
             Console.WriteLine("4:Go back to Home page");
         }
-       
+
+        /// <summary>
+        ///     //check if the word user wants to add has a symbol in it
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns>true if symbol exsits</returns>
+        public static bool CheckWordHasSpecialChar(string word)
+        {
+            string specialChar = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
+            for (int i = 0; i < word.Length; i++)
+            {   for(int j = 0; j < specialChar.Length; j++)
+                {
+                    if (word[i]== specialChar[j]) return true;
+                }
+              
+            }
+            return false;
+
+        }
+
+
 
         /// <summary>
         /// Add a word to the file
@@ -326,10 +346,11 @@ namespace Lab03_WordGuessGame
         /// <returns>true if successfully added</returns>
         public static bool AddWord(string path,string word)
         {
-            
-        
+            bool check = CheckWordHasSpecialChar(word);
+            string newword = word.Replace(" ", "");
+           
             bool isDigitPresent = word.Any(c => char.IsDigit(c));
-            if (isDigitPresent==true||word.Length==0||word==" ")
+            if (isDigitPresent==true||newword.Length==0||check==true)
             {
                 Console.WriteLine("This is not a word.");
                 return false;

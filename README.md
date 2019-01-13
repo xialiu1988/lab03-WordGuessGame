@@ -119,6 +119,14 @@ If you type a space,still will not be added
 
 
 
+If you type some special characters , still nothin will be added to the file
+
+
+
+![admin](Nosymbol.png)
+
+
+
 Now we go back to Admin and choose"3" to delete a word
 
 
