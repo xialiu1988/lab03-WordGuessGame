@@ -33,13 +33,23 @@ namespace WordGuessGameTDD
 
         }
         [Fact]
-        public void CannotAddWordToFIleIFitisAspace()
+        public void CannotAddAbunchOFSpaces()
         {
             string path = "../../../fortest.txt";
-            string word = " ";
+            string word = "        ";
             Assert.False(Program.AddWord(path, word));
 
         }
+
+        [Fact]
+        public void CannotAddWordContainsSpecialCharToFIle()
+        {
+            string path = "../../../fortest.txt";
+            string word = " #@?.";
+            Assert.False(Program.AddWord(path, word));
+
+        }
+
         [Fact]
         public void CanDeleteWordFromFIle()
         {
